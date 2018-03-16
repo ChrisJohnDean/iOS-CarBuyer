@@ -21,8 +21,68 @@ import XCTest
 
 class CarsTests: XCTestCase {
     
-  test_ShouldBuyCar_GivenAHatchback_ShouldReturnFalse() {
+  func test_ShouldBuyCar_GivenAHatchback_ShouldReturnFalse() {
+    let car = Car()
+    car.type = "Hatchback"
+    let carBuyer = CarBuyer()
+    let result = carBuyer.shouldBuy(car: car)
+    XCTAssertFalse(result)
+  }
+  
+  func test_shouldBuyCar_GivenAPinkCar_ShouldReturnTrue() {
+    let car = Car()
+    car.color = "pink"
+    let carBuyer = CarBuyer()
+    let result = carBuyer.shouldBuy(car: car)
+    XCTAssertTrue(result)
     
   }
+  
+  func test_shouldBuyCar_GivenAPinkCar_AndAHatchback_ShouldReturnFalse() {
+    let car = Car()
+    car.color = "pink"
+    car.type = "hatchback"
+    let carBuyer = CarBuyer()
+    let result = carBuyer.shouldBuy(car: car)
+    XCTAssertFalse(result)
     
+  }
+
+  
+  func test_shouldBuyCar_GivenACarBetween6and11Litres_AndEqualOrUnder5000_ShouldReturnTrue() {
+    let car = Car()
+    car.price = 2500
+    car.litresPer100km = 7
+    let carBuyer = CarBuyer()
+    let result = carBuyer.shouldBuy(car: car)
+    XCTAssertTrue(result)
+  }
+  
+  func test_shouldBuyCar_GivenACarNotBetween6and11Litres_ShouldReturnFalse() {
+    let car = Car()
+    car.price = 2500
+    car.litresPer100km = 13
+    let carBuyer = CarBuyer()
+    let result = carBuyer.shouldBuy(car: car)
+    XCTAssertFalse(result)
+  }
+  
+  func test_shouldBuyCar_GivenACarEqualOrUnder5000_ShouldReturnTrue() {
+    let car = Car()
+    car.price = 2500
+    car.litresPer100km = 7
+    let carBuyer = CarBuyer()
+    let result = carBuyer.shouldBuy(car: car)
+    XCTAssertTrue(result)
+  }
+  
+  func test_shouldBuyCar_GivenACarOver5000_ShouldReturnFalse() {
+    let car = Car()
+    car.price = 7500
+    car.litresPer100km = 7
+    let carBuyer = CarBuyer()
+    let result = carBuyer.shouldBuy(car: car)
+    XCTAssertFalse(result)
+  }
+  
 }
